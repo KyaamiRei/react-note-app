@@ -1,0 +1,59 @@
+.button {
+  display: inline-block;
+  background-color: #fe5f1e;
+  border-radius: 30px;
+  padding: 10px 20px;
+  min-width: 100px;
+  text-align: center;
+  cursor: pointer;
+  -webkit-transition: background-color 0.15s ease-in-out, border-color 0.15s ease-in-out;
+  transition: background-color 0.15s ease-in-out, border-color 0.15s ease-in-out;
+  border: 1px solid transparent;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+
+  &:hover {
+    background-color: #f24701;
+
+    span {
+      color: #fff;
+    }
+  }
+  &:active {
+    background-color: #de4101;
+    -webkit-transform: translateY(1px);
+    transform: translateY(1px);
+  }
+
+  
+  &__outline {
+    background-color: #fff;
+    border-color: #fe5f1e;
+
+    span {
+      color: #fe5f1e;
+    }
+
+    &:hover {
+      background-color: #fe5f1e;
+
+      span {
+        color: #fff;
+      }
+    }
+
+    &:active {
+      background-color: #f24701;
+    }
+  }
+
+  &__option {
+    span {
+      font-weight: 600;
+      font-size: 16px;
+    }
+  }
+}

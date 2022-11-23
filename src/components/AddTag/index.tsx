@@ -47,6 +47,10 @@ const AddTag: React.FC<AddTagProps> = React.memo(({ addTag, isVisible, setIsVisi
           type={'text'}
           placeholder={'Введите название заметки'}
         />
+        <p>
+          *Для добавление тегов используйте #, для добавление нескольких тегов, пишите их через
+          пробел
+        </p>
 
         {tag && <MyButton onClick={() => onAddNote()}>Добавить тег</MyButton>}
       </div>

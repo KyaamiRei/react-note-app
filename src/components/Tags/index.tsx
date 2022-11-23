@@ -37,10 +37,12 @@ const Tags: React.FC<TagProps> = React.memo(({ activTag, deleteTag, setActivTag,
                     e.stopPropagation();
                   }}
                   className={styles.close__btn}>
-                  <img
-                    src={closeIcon}
-                    alt='Close'
-                  />
+                  {activTag !== String(index) && (
+                    <img
+                      src={closeIcon}
+                      alt='Close'
+                    />
+                  )}
                 </div>
               )}
             </li>

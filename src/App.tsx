@@ -14,12 +14,13 @@ import TagList from './store/TagList.json';
 
 import './styles/App.scss';
 
+// основной компонент приложения
 export const App = () => {
-  const [notes, setNotes] = useState<NoteProp[]>([]);
-  const [tags, setTags] = useState<TagProp[]>([]);
-  const [activTag, setActivTag] = useState('0');
+  const [notes, setNotes] = useState<NoteProp[]>([]); // состояния для наших заметок
+  const [tags, setTags] = useState<TagProp[]>([]); // состояние для тегов
+  const [activTag, setActivTag] = useState('0'); // состояние выбранного тега, для сортировки
 
-  const [isVisibleAddNote, setIsVisibleAddNote] = useState<boolean>(false);
+  const [isVisibleAddNote, setIsVisibleAddNote] = useState<boolean>(false); // состояние для показа окна добавления заметки
   const [isVisibleAddTag, setIsVisibleAddTag] = useState<boolean>(false);
 
   const addNote = (obj: NoteProp) => {
@@ -47,7 +48,6 @@ export const App = () => {
   };
 
   useEffect(() => {
-    JSON.stringify(notes, null, 2);
     console.log('данные изменились');
   }, [notes, tags]);
 

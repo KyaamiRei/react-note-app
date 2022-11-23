@@ -1,53 +1,25 @@
 import React from 'react';
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useState } from 'react';
+import { TagProp } from '../../@types/types';
 
 import styles from './Tags.module.scss';
 
-type TagProp = {
-  id: number;
-  title: string;
+type TagProps = {
+  tagList: TagProp[];
 };
 
-const tagsList: TagProp[] = [
-  {
-    id: 0,
-    title: 'Все',
-  },
-  {
-    id: 1,
-    title: '#shop',
-  },
-  {
-    id: 2,
-    title: '#music',
-  },
-  {
-    id: 3,
-    title: '#games',
-  },
-  {
-    id: 4,
-    title: '#world',
-  },
-];
-
-const Tags = React.memo(() => {
-  const [tags, setTag] = useState<TagProp[]>([]);
+const Tags: React.FC<TagProps> = React.memo(({ tagList }) => {
   const [activTag, setActivTag] = useState(0);
 
   const onChangeTag = useCallback((id: number) => {
     setActivTag(id);
   }, []);
 
-  useEffect(() => {
-    setTag(tagsList);
-  }, []);
-
   return (
     <div className={styles.categories}>
       <ul>
-        {tags?.length > 0 &&
-          tags.map((tag, index) => (
+        {tagList.length > 0 &&
+          tagList.map((tag, index) => (
             <li
               onClick={() => onChangeTag(index)}
               className={activTag === index ? styles.active : ''}

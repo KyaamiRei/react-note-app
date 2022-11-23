@@ -1,0 +1,26 @@
+[
+  {
+    "id": "1",
+    "title": "Название для заметки",
+    "text": "Ну это , просто текст как то вот так вот ага",
+    "tags": ["#shop", "#shop", "#shop"]
+  },
+  {
+    "id": "2",
+    "title": "string",
+    "text": "string",
+    "tags": ["", "#shop"]
+  },
+  {
+    "id": "3",
+    "title": "string",
+    "text": "string",
+    "tags": ["", "#shop"]
+  },
+  {
+    "id": "4",
+    "title": "string",
+    "text": "string",
+    "tags": ["#shop", ""]
+  }
+]

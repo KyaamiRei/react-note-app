@@ -1,0 +1,48 @@
+.content {
+  padding: 40px;
+
+  &__title {
+    margin-top: 10px;
+    font-size: 22px;
+    font-weight: 700;
+  }
+
+  &__text {
+    margin-top: 10px;
+    font-size: 18px;
+  }
+
+  &__tags {
+    font-size: 17px;
+
+    margin: 15px 0;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+  }
+  &__tag {
+    width: 80px;
+    margin-left: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 20px;
+    padding: 8px;
+    background: #efefef;
+    cursor: pointer;
+    font-weight: 700;
+    font-size: 14px;
+    transition: background 0.3s ease-in-out;
+
+    &:hover {
+      background: #fff7ef;
+    }
+  }
+
+  &__button {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    margin-top: 20px;
+  }
+}

@@ -1,40 +1,77 @@
+import React, { useState } from 'react';
+
 import MyButton from '../UI/Button';
 import MyInput from '../UI/Input';
 
-import { ModalProp } from '../../@types/modal';
+import { AddNodeProps } from '../../@types/types';
 
 import styles from './AddNote.module.scss';
-import React from 'react';
 
-const AddNote: React.FC<ModalProp> = React.memo(({ isVisible, setIsVisible }) => {
-  const classVisible = [styles.modal];
-  if (isVisible) classVisible.push(styles.modal__active);
+const AddNote: React.FC<AddNodeProps> = React.memo(
+  ({ addNote, addTag, isVisible, setIsVisible }) => {
+    const [title, setTitle] = useState<string>('');
+    const [text, setText] = useState<string>('');
 
-  const onAddNote = () => {
-    console.log('Заметка добавлена');
-    setIsVisible(!isVisible);
-  };
+    const classVisible = [styles.modal];
+    if (isVisible) classVisible.push(styles.modal__active);
 
-  return (
-    <div
-      className={classVisible.join(' ')}
-      onClick={() => setIsVisible(!isVisible)}>
+    const onAddNote = () => {
+      const tagList = text.match(/#\S*/g);
+
+      if (tagList) {
+        addNote({
+          id: String(Date.now()),
+          title: title,
+          text: text,
+          tags: tagList,
+        });
+
+        tagList.forEach((tag) => {
+          addTag({
+            id: String(Date.now()),
+            title: tag,
+          });
+        });
+      } else {
+        addNote({
+          id: String(Date.now()),
+          title: title,
+          text: text,
+          tags: [],
+        });
+      }
+      
+      setTitle('');
+      setText('');
+      setIsVisible(!isVisible);
+    };
+
+    return (
       <div
-        className={styles.modal__content}
-        onClick={(e) => e.stopPropagation()}>
-        <MyInput
-          type={'text'}
-          placeholder={'Введите название заметки'}
-        />
-        <MyInput
-          type={'text'}
-          placeholder={'Введите текст заметки'}
-        />
+        className={classVisible.join(' ')}
+        onClick={() => setIsVisible(!isVisible)}>
+        <div
+          className={styles.modal__content}
+          onClick={(e) => e.stopPropagation()}>
+          <MyInput
+            value={title}
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) => setTitle(e.target.value)}
+            type={'text'}
+            placeholder={'Введите название заметки'}
+          />
+          <MyInput
+            value={text}
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) => setText(e.target.value)}
+            type={'text'}
+            placeholder={'Введите текст заметки'}
+          />
+          <p>*Оба поля должны быть заполнены</p>
 
-        <MyButton onClick={() => onAddNote()}>Добавить заметку</MyButton>
+          {text && title && <MyButton onClick={() => onAddNote()}>Добавить заметку</MyButton>}
+        </div>
       </div>
-    </div>
-  );
-});
+    );
+  },
+);
 
 export default AddNote;

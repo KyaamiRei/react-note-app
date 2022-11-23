@@ -1,21 +1,26 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
-import MyButton from '../UI/Button';
+import { NoteProp } from '../../@types/types';
+
 import styles from './Note.module.scss';
 
-const Note = React.memo(() => {
+const Note: React.FC<NoteProp> = React.memo(({ id, title, text, tags }) => {
   return (
     <div className={styles.note__block}>
-      <h4 className={styles.note__block__title}>Заметка 1</h4>
+      <Link to={`/${id}`}>
+        <h4 className={styles.note__block__title}>{title}</h4>
+      </Link>
       <div className={styles.note__block__selector}>
         <ul>
-          <li className={styles.active}>#shop</li>
-          <li className={styles.active}>#world</li>
+          {tags.map((tag, index) => (
+            <li
+              key={index}
+              className={styles.active}>
+              {tag}
+            </li>
+          ))}
         </ul>
-      </div>
-      <div className={styles.note__block__bottom}>
-        <MyButton onClick={() => console.log('Заметка удалена')}>Удалить</MyButton>
-        <MyButton onClick={() => console.log('Редактировать заметку')}>Редактировать</MyButton>
       </div>
     </div>
   );

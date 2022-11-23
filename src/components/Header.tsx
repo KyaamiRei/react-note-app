@@ -1,15 +1,14 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 import styles from '../styles/Header.module.scss';
 
 const Header = React.memo(() => {
   return (
     <div className={styles.header}>
-      <div className='container'>
-        <div>
-          <h1>React Note</h1>
-        </div>
-      </div>
+      <Link to={'/'}>
+        <h1>React Note</h1>
+      </Link>
     </div>
   );
 });

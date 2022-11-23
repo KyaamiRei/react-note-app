@@ -48,7 +48,9 @@ const MainPage: React.FC<MainPageProps> = React.memo(
               <MyButton onClick={showModalAddTag}>Создать тег</MyButton>
             </div>
           </div>
-          <h2 className={styles.content__title}>Все заметки</h2>
+          <h2 className={styles.content__title}>
+            {notes.length > 0 ? 'Все заметки' : 'У вас пока что нет заметок'}
+          </h2>
           <div className={styles.content__items}>
             {(Number(activTag) > 0 ? filter : notes).map((item) => (
               <Note

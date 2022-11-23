@@ -7,6 +7,7 @@ type MyButtonProps = {
   onClick: () => void;
 };
 
+// компонент кастомного Button для возможности переиспользования
 const MyButton = React.memo(({ children, ...props }: MyButtonProps) => {
   return (
     <button

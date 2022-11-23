@@ -1,3 +1,6 @@
+// типы props компонентов и объектов
+
+// Основная страницы
 export type MainPageProps = {
   isVisibleAddNote: boolean;
   setIsVisibleAddNote: (isVisible: boolean) => void;
@@ -10,6 +13,7 @@ export type MainPageProps = {
   setActivTag: (id: string) => void;
 };
 
+// модальное окно для добавление заметки
 export type AddNodeProps = {
   isVisibleAddNote: boolean;
   setIsVisibleAddNote: Function;
@@ -17,12 +21,14 @@ export type AddNodeProps = {
   addTag: (obj: TagProp) => void;
 };
 
+// модальное окно для добавление тега
 export type AddTagProps = {
   isVisible: boolean;
   setIsVisible: Function;
   addTag: (obj: TagProp) => void;
 };
 
+// страница детального просмотра заметки
 export type DetailProps = {
   notes: NoteProp[];
   setNotes: Function;
@@ -30,6 +36,7 @@ export type DetailProps = {
   addTag: (obj: TagProp) => void;
 };
 
+// модальное окно для редактирования заметки
 export type EditNodeProps = {
   idNote: string;
   notes: NoteProp[];
@@ -39,6 +46,15 @@ export type EditNodeProps = {
   addTag: (obj: TagProp) => void;
 };
 
+// типы для компонента тегов
+export type TagProps = {
+  tagList: TagProp[];
+  activTag: string;
+  setActivTag: (id: string) => void;
+  deleteTag: (id: string) => void;
+};
+
+// типы для можели заметки
 export type NoteProp = {
   id: string;
   title: string;
@@ -46,6 +62,7 @@ export type NoteProp = {
   tags: string[];
 };
 
+// типы для можели тега
 export type TagProp = {
   id: string;
   title: string;

@@ -1,21 +1,18 @@
 import React from 'react';
-import { TagProp } from '../../@types/types';
+
+import { TagProps } from '../../@types/types';
 
 import styles from './Tags.module.scss';
 import closeIcon from '../../assets/image/close.svg';
 
-type TagProps = {
-  tagList: TagProp[];
-  activTag: string;
-  setActivTag: (id: string) => void;
-  deleteTag: (id: string) => void;
-};
-
+// компонент тегов для сортировки
 const Tags: React.FC<TagProps> = React.memo(({ activTag, deleteTag, setActivTag, tagList }) => {
+  // изменение тега для сортировки
   const onChangeTag = (id: string) => {
     setActivTag(id);
   };
 
+  // удаление тега
   const onClickDelete = (id: string) => {
     deleteTag(String(id));
   };

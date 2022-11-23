@@ -7,16 +7,20 @@ import { AddTagProps } from '../../@types/types';
 
 import styles from './AddTag.module.scss';
 
+// компонент для добавления тега
 const AddTag: React.FC<AddTagProps> = React.memo(({ addTag, isVisible, setIsVisible }) => {
-  const [tag, setTag] = useState<string>('');
+  const [tag, setTag] = useState<string>(''); // состояние текста в Input
 
+  // стили для отображения модального окна
   const classVisible = [styles.modal];
   if (isVisible) classVisible.push(styles.modal__active);
 
+  // действия при нажатия кнопи "Добавить"
   const onAddNote = () => {
     const tagList = tag.match(/#\S*/g);
 
     if (tagList) {
+      // добавление тегов в список
       tagList.forEach((tag) => {
         addTag({
           id: String(Date.now()),
@@ -25,6 +29,7 @@ const AddTag: React.FC<AddTagProps> = React.memo(({ addTag, isVisible, setIsVisi
       });
     }
 
+    // зактыие окна и очиста Input
     setTag('');
     setIsVisible(!isVisible);
   };

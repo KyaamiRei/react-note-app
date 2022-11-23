@@ -8,6 +8,7 @@ import MyButton from '../components/UI/Button';
 
 import styles from '../styles/MainPage.module.scss';
 
+// основной компонент приложения
 const MainPage: React.FC<MainPageProps> = React.memo(
   ({
     activTag,
@@ -20,11 +21,14 @@ const MainPage: React.FC<MainPageProps> = React.memo(
     isVisibleAddTag,
     setIsVisibleAddTag,
   }) => {
+    // переменная для хранения отфильтрованнх заметок
     const filter = notes.filter((item) => item.tags.includes(tags[Number(activTag)].title));
 
+    // показать модальное окно добавление заметки
     const showModalAddNote = () => {
       setIsVisibleAddNote(!isVisibleAddNote);
     };
+    // показать модальное окно добавление тега
     const showModalAddTag = () => {
       setIsVisibleAddTag(!isVisibleAddTag);
     };

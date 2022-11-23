@@ -7,18 +7,24 @@ import { AddNodeProps } from '../../@types/types';
 
 import styles from './AddNote.module.scss';
 
+// компонент добавления заметки
 const AddNote: React.FC<AddNodeProps> = React.memo(
   ({ addNote, addTag, isVisibleAddNote, setIsVisibleAddNote }) => {
-    const [title, setTitle] = useState<string>('');
-    const [text, setText] = useState<string>('');
+    const [title, setTitle] = useState<string>(''); // состояние заголовка заметки
+    const [text, setText] = useState<string>(''); // состояние текста заметки
 
+    // стили для отображения модального окна
     const classVisible = [styles.modal];
     if (isVisibleAddNote) classVisible.push(styles.modal__activ);
 
+    // действие при нажатии кнопки "Добавить"
     const onAddNote = () => {
+      // полчение из текста списка тегов
       const tagList = text.match(/#\S*/g);
 
+      // если есть теги
       if (tagList) {
+        // добавление заметки
         addNote({
           id: String(Date.now()),
           title: title,
@@ -26,6 +32,7 @@ const AddNote: React.FC<AddNodeProps> = React.memo(
           tags: tagList,
         });
 
+        // добавление тегов в список
         tagList.forEach((tag) => {
           addTag({
             id: String(Date.now()),
@@ -33,6 +40,7 @@ const AddNote: React.FC<AddNodeProps> = React.memo(
           });
         });
       } else {
+        // если в тексте не было тегов
         addNote({
           id: String(Date.now()),
           title: title,
@@ -41,6 +49,7 @@ const AddNote: React.FC<AddNodeProps> = React.memo(
         });
       }
       
+      //очищение полей и скрытие окна
       setTitle('');
       setText('');
       setIsVisibleAddNote(!isVisibleAddNote);

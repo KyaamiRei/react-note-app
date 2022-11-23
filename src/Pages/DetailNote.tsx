@@ -8,10 +8,13 @@ import MyButton from '../components/UI/Button';
 
 import styles from '../styles/DetailPage.module.scss';
 
+// компонент для детального просмотра записки, ее редактировании и удаление
 const DetailNote: React.FC<DetailProps> = ({ addTag, notes, setNotes, deleteNote }) => {
-  const { id } = useParams();
+  const { id } = useParams(); // взять id заметки из адреса строки
 
-  const [isVisible, setIsVisible] = useState<boolean>(false);
+  const [isVisible, setIsVisible] = useState<boolean>(false); // состояние для модального окна редактирования
+
+  // состояние для заметки
   const [note, setNote] = useState<{
     id: string;
     title: string;
@@ -19,11 +22,13 @@ const DetailNote: React.FC<DetailProps> = ({ addTag, notes, setNotes, deleteNote
     tags: string[];
   }>();
 
+  // при первой загрузке выбирает запись из всего списка
   useEffect(() => {
     const noteItem = notes.find((note) => note.id === id);
     setNote(noteItem);
   }, [id, notes]);
 
+  // ожидание загрузки данных
   if (!note) {
     return <>'Loading...'</>;
   }
@@ -42,9 +47,11 @@ const DetailNote: React.FC<DetailProps> = ({ addTag, notes, setNotes, deleteNote
       ) : (
         ''
       )}
+
       <Link to={'/'}>
         <MyButton onClick={() => {}}>Назад</MyButton>
       </Link>
+
       <div className={styles.content__title}>{note.title}</div>
       {note.tags && (
         <div className={styles.content__tags}>

@@ -7,11 +7,13 @@ import { EditNodeProps } from '../../@types/types';
 
 import styles from './EditNote.module.scss';
 
+// компонент модельного окна для редактирования заметки
 const EditNote: React.FC<EditNodeProps> = React.memo(
   ({ addTag, idNote, notes, setNotes, isVisible, setIsVisible }) => {
-    const [titleEdit, setTitleEdit] = useState<string>('');
-    const [textEdit, setTextEdit] = useState<string>('');
+    const [titleEdit, setTitleEdit] = useState<string>(''); // состояние первого Input для названия заметки
+    const [textEdit, setTextEdit] = useState<string>(''); // состояние второго Input для текста заметки
 
+    // состояние заметки
     const [note, setNote] = useState<{
       id: string;
       title: string;
@@ -19,10 +21,14 @@ const EditNote: React.FC<EditNodeProps> = React.memo(
       tags: string[];
     }>({ id: '', title: '', text: '', tags: [] });
 
+    // действия при нажатии на кнопки "Редактировать"
     const onEditNote = () => {
+      // получение списка тегов
       const tagList = textEdit.match(/#\S*/g);
 
+      // если есть теги в тексте
       if (tagList) {
+        // добавление тегов в список
         tagList.forEach((tag) => {
           addTag({
             id: String(Date.now()),
@@ -30,6 +36,7 @@ const EditNote: React.FC<EditNodeProps> = React.memo(
           });
         });
 
+        // объект отредактированной заметки
         const editNote = {
           id: idNote,
           title: titleEdit,
@@ -37,6 +44,7 @@ const EditNote: React.FC<EditNodeProps> = React.memo(
           tags: tagList,
         };
 
+        // изменение заметки в состоянии 
         setNotes(
           notes.map((obj) => {
             if (obj.id === idNote) {
@@ -49,12 +57,15 @@ const EditNote: React.FC<EditNodeProps> = React.memo(
         );
       }
 
+      // закрывает модальное окно
       setIsVisible(!isVisible);
     };
 
+    // стили для отображения модального окна
     const classVisible = [styles.modal];
     if (isVisible) classVisible.push(styles.modal__active);
 
+    // при изменении состоянии Input изменять состояние
     useEffect(() => {
       const noteItem = notes.find((note) => note.id === idNote);
       if (noteItem) {
@@ -84,7 +95,9 @@ const EditNote: React.FC<EditNodeProps> = React.memo(
             placeholder={'Введите текст заметки'}
           />
 
-          <MyButton onClick={() => onEditNote()}>Изменить заметку</MyButton>
+          {titleEdit && titleEdit && (
+            <MyButton onClick={() => onEditNote()}>Изменить заметку</MyButton>
+          )}
         </div>
       </div>
     );

@@ -1,5 +1,7 @@
 import { useEffect, useState } from 'react';
-import { Route, Routes } from 'react-router-dom';
+import { Route, Routes, useNavigate } from 'react-router-dom';
+
+// import { saveNoteToJSON, saveTagToJSON } from './store';
 
 import { NoteProp, TagProp } from './@types/types';
 
@@ -16,17 +18,22 @@ import './styles/App.scss';
 
 // основной компонент приложения
 export const App = () => {
+  // хук для редиректа со страницы заметки, при ее удалении
+  const navigate = useNavigate();
+
   const [notes, setNotes] = useState<NoteProp[]>([]); // состояния для наших заметок
   const [tags, setTags] = useState<TagProp[]>([]); // состояние для тегов
   const [activTag, setActivTag] = useState('0'); // состояние выбранного тега, для сортировки
 
   const [isVisibleAddNote, setIsVisibleAddNote] = useState<boolean>(false); // состояние для показа окна добавления заметки
-  const [isVisibleAddTag, setIsVisibleAddTag] = useState<boolean>(false);
+  const [isVisibleAddTag, setIsVisibleAddTag] = useState<boolean>(false); // состояние для показа окна добавления тега
 
+  // добавление заметки
   const addNote = (obj: NoteProp) => {
     setNotes((prev) => [...prev, obj]);
   };
 
+  // добавление тега, если такой уже существует, то ничего не происходит
   const addTag = (obj: TagProp) => {
     const findItem = tags.find((item) => item.title === obj.title);
     if (findItem) {
@@ -35,25 +42,38 @@ export const App = () => {
     }
   };
 
+  // удаление заметки
   const deleteNote = (idNote: string) => {
+    navigate('/');
     setNotes((prev) => prev.filter((note) => note.id !== idNote));
   };
 
+  // удаление тега
   const deleteTag = (idTag: string) => {
     setTags((prev) => prev.filter((tag) => tag.id !== idTag));
   };
 
+  // выбор тега для сортировки
   const onChangeTag = (id: string) => {
+    // saveNoteToJSON(notes);
+    // saveTagToJSON(tags);
     setActivTag(id);
   };
 
+  // при изменении состояния записок или тега, сохраняет изменения в JSON
   useEffect(() => {
     console.log('данные изменились');
   }, [notes, tags]);
 
+  // при первом запуске приложения данный из JSON загружаются в состояние
   useEffect(() => {
-    setNotes(NoteList);
-    setTags(TagList);
+    try {
+      setNotes(NoteList);
+      setTags(TagList);
+    } catch (error) {
+      alert('Ошибка при загрузке данных');
+      console.log(error);
+    }
   }, []);
 
   return (
@@ -64,12 +84,15 @@ export const App = () => {
         isVisibleAddNote={isVisibleAddNote}
         setIsVisibleAddNote={setIsVisibleAddNote}
       />
+
       <AddTag
         addTag={(obj: TagProp) => addTag(obj)}
         isVisible={isVisibleAddTag}
         setIsVisible={setIsVisibleAddTag}
       />
+
       <Header />
+
       <Routes>
         <Route
           path=''

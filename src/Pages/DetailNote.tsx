@@ -1,20 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 
-import { NoteProp } from '../@types/types';
+import { DetailProps, TagProp } from '../@types/types';
 
 import EditNote from '../components/EditNote';
 import MyButton from '../components/UI/Button';
 
 import styles from '../styles/DetailPage.module.scss';
 
-type DetailProps = {
-  notes: NoteProp[];
-  setNotes: Function;
-  deleteNote: (id: string) => void;
-};
-
-const DetailNote: React.FC<DetailProps> = ({ notes, setNotes, deleteNote }) => {
+const DetailNote: React.FC<DetailProps> = ({ addTag, notes, setNotes, deleteNote }) => {
   const { id } = useParams();
 
   const [isVisible, setIsVisible] = useState<boolean>(false);
@@ -41,6 +35,7 @@ const DetailNote: React.FC<DetailProps> = ({ notes, setNotes, deleteNote }) => {
           idNote={id}
           notes={notes}
           setNotes={setNotes}
+          addTag={(obj: TagProp) => addTag(obj)}
           isVisible={isVisible}
           setIsVisible={setIsVisible}
         />

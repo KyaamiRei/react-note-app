@@ -8,12 +8,12 @@ import { AddNodeProps } from '../../@types/types';
 import styles from './AddNote.module.scss';
 
 const AddNote: React.FC<AddNodeProps> = React.memo(
-  ({ addNote, addTag, isVisible, setIsVisible }) => {
+  ({ addNote, addTag, isVisibleAddNote, setIsVisibleAddNote }) => {
     const [title, setTitle] = useState<string>('');
     const [text, setText] = useState<string>('');
 
     const classVisible = [styles.modal];
-    if (isVisible) classVisible.push(styles.modal__active);
+    if (isVisibleAddNote) classVisible.push(styles.modal__activ);
 
     const onAddNote = () => {
       const tagList = text.match(/#\S*/g);
@@ -43,13 +43,13 @@ const AddNote: React.FC<AddNodeProps> = React.memo(
       
       setTitle('');
       setText('');
-      setIsVisible(!isVisible);
+      setIsVisibleAddNote(!isVisibleAddNote);
     };
 
     return (
       <div
         className={classVisible.join(' ')}
-        onClick={() => setIsVisible(!isVisible)}>
+        onClick={() => setIsVisibleAddNote(!isVisibleAddNote)}>
         <div
           className={styles.modal__content}
           onClick={(e) => e.stopPropagation()}>

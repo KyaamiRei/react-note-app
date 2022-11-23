@@ -8,7 +8,7 @@ import { EditNodeProps } from '../../@types/types';
 import styles from './EditNote.module.scss';
 
 const EditNote: React.FC<EditNodeProps> = React.memo(
-  ({ idNote, notes, setNotes, isVisible, setIsVisible }) => {
+  ({ addTag, idNote, notes, setNotes, isVisible, setIsVisible }) => {
     const [titleEdit, setTitleEdit] = useState<string>('');
     const [textEdit, setTextEdit] = useState<string>('');
 
@@ -23,6 +23,13 @@ const EditNote: React.FC<EditNodeProps> = React.memo(
       const tagList = textEdit.match(/#\S*/g);
 
       if (tagList) {
+        tagList.forEach((tag) => {
+          addTag({
+            id: String(Date.now()),
+            title: tag,
+          });
+        });
+
         const editNote = {
           id: idNote,
           title: titleEdit,

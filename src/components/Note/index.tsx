@@ -5,7 +5,7 @@ import { NoteProp } from '../../@types/types';
 
 import styles from './Note.module.scss';
 
-const Note: React.FC<NoteProp> = React.memo(({ id, title, text, tags }) => {
+const Note: React.FC<NoteProp> = React.memo(({ id, title, tags }) => {
   return (
     <div className={styles.note__block}>
       <Link to={`/${id}`}>

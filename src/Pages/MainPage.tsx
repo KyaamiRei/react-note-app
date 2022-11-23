@@ -9,28 +9,47 @@ import MyButton from '../components/UI/Button';
 import styles from '../styles/MainPage.module.scss';
 
 const MainPage: React.FC<MainPageProps> = React.memo(
-  ({ notes, tags, isVisible, setIsVisible }) => {
-    
-    const showModal = () => {
-      setIsVisible(!isVisible);
+  ({
+    activTag,
+    setActivTag,
+    notes,
+    tags,
+    deleteTag,
+    isVisibleAddNote,
+    setIsVisibleAddNote,
+    isVisibleAddTag,
+    setIsVisibleAddTag,
+  }) => {
+    const filter = notes.filter((item) => item.tags.includes(tags[Number(activTag)].title));
+
+    const showModalAddNote = () => {
+      setIsVisibleAddNote(!isVisibleAddNote);
+    };
+    const showModalAddTag = () => {
+      setIsVisibleAddTag(!isVisibleAddTag);
     };
 
     return (
       <div className={styles.content}>
         <div className={styles.container}>
           <div className={styles.content__top}>
-            <Tags tagList={tags} />
-            <div className='add__note'>
-              <MyButton onClick={showModal}>Создать заметку</MyButton>
+            <Tags
+              activTag={activTag}
+              setActivTag={(id) => setActivTag(id)}
+              deleteTag={(id) => deleteTag(id)}
+              tagList={tags}
+            />
+            <div className={styles.add__btn}>
+              <MyButton onClick={showModalAddNote}>Создать заметку</MyButton>
+              <MyButton onClick={showModalAddTag}>Создать тег</MyButton>
             </div>
           </div>
           <h2 className={styles.content__title}>Все заметки</h2>
           <div className={styles.content__items}>
-            {notes.map((item) => (
+            {(Number(activTag) > 0 ? filter : notes).map((item) => (
               <Note
                 key={item.id}
                 {...item}
-                // deleteNote={(id: string) => deleteNote(id)}
               />
             ))}
           </div>

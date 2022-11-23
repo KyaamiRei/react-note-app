@@ -1,26 +1,14 @@
 [
   {
-    "id": "1",
+    "id": "10",
     "title": "Название для заметки",
     "text": "Ну это , просто текст как то вот так вот ага",
-    "tags": ["#shop", "#shop", "#shop"]
+    "tags": ["#shop", "#music", "#world"]
   },
   {
-    "id": "2",
-    "title": "string",
-    "text": "string",
-    "tags": ["", "#shop"]
-  },
-  {
-    "id": "3",
-    "title": "string",
-    "text": "string",
-    "tags": ["", "#shop"]
-  },
-  {
-    "id": "4",
-    "title": "string",
-    "text": "string",
-    "tags": ["#shop", ""]
+    "id": "19",
+    "title": "Название для заметки",
+    "text": "Ну это , просто текст как то вот так вот ага",
+    "tags": ["#shop", "#music", "#world"]
   }
 ]
